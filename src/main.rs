@@ -1,12 +1,35 @@
-use std::io;
+enum Language {
+    English,
+    German
+}
+
+struct Greeter {
+    language: Language,
+}
+
+impl Greeter {
+    fn new() -> Greeter {
+        Greeter { 
+            language: Language::English,
+         }
+    }
+
+    fn with_language(mut self, language: Language) -> Greeter {
+        self.language = language;
+        self
+    }
+
+    fn greet(self) {
+        match self.language {
+            Language::English => println!("Hello Rust"),
+            Language::German => println!("Hallo Rust"),
+        }
+    }
+}
 
 fn main() {
-    println!("Enter a number");
-
-    let mut number = String::new();
-
-    io::stdin().read_line(&mut number)
-        .expect("Failed to load");
-    
-    println!("Your guess is {}", number);
+    Greeter::new().with_language(Language::German).greet();
 }
+
+
+
